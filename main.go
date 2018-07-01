@@ -23,6 +23,7 @@ func main() {
 		fmt.Println(err.Error())
 	}
 	fmt.Println("GOLANG API")
+
 	http.HandleFunc("/", view.ListAllAsn)
 	http.HandleFunc("/asnForm", view.AddAsn)
 	http.HandleFunc("/prosesAsn", model.AddAsn)
@@ -30,6 +31,8 @@ func main() {
 	http.HandleFunc("/deleteAsn", model.DeleteAsn)
 	http.HandleFunc("/updateAsn", model.UpdateAsn)
 	http.HandleFunc("/test", nil)
+
+	http.Handle("/test/", http.StripPrefix("/test/", http.FileServer(http.Dir("./test"))))
 
 	// API ROUTES
 	http.HandleFunc("/api/", api.ListAllAsnAPI)

@@ -14,6 +14,7 @@ type pegawai struct {
 	Nip    string `json:"nip"`
 	Nama   string `json:"nama"`
 	Alamat string `json:"alamat"`
+	Profil string `json:"profil"`
 }
 
 //ListAllAsnAPI unutk get data asn
@@ -23,7 +24,7 @@ func ListAllAsnAPI(w http.ResponseWriter, req *http.Request) {
 	if req.Method == http.MethodGet {
 		db, err := myconfig.GetMysqlConnect()
 		defer db.Close()
-		rows, err := db.Query("SELECT id, Nik, Nip, Nama, Alamat FROM sim_asn ORDER BY id DESC")
+		rows, err := db.Query("SELECT id, Nik, Nip, Nama, Alamat, Profil FROM sim_asn ORDER BY id DESC")
 		if err != nil {
 			log.Println(err)
 			http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -32,7 +33,7 @@ func ListAllAsnAPI(w http.ResponseWriter, req *http.Request) {
 		asns := make([]pegawai, 0)
 		for rows.Next() {
 			pegawais := pegawai{}
-			rows.Scan(&pegawais.ID, &pegawais.Nik, &pegawais.Nip, &pegawais.Nama, &pegawais.Alamat)
+			rows.Scan(&pegawais.ID, &pegawais.Nik, &pegawais.Nip, &pegawais.Nama, &pegawais.Alamat, &pegawais.Profil)
 			asns = append(asns, pegawais)
 		}
 		result, err := json.Marshal(asns)
@@ -51,7 +52,7 @@ func GetAsnAPI(w http.ResponseWriter, req *http.Request) {
 		id := req.FormValue("id")
 		db, err := myconfig.GetMysqlConnect()
 		defer db.Close()
-		rows, err := db.Query("SELECT id, Nik, Nip, Nama, Alamat FROM sim_asn WHERE id = " + id)
+		rows, err := db.Query("SELECT id, Nik, Nip, Nama, Alamat, Profil FROM sim_asn WHERE id = " + id)
 		if err != nil {
 			log.Println(err)
 			http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -60,7 +61,7 @@ func GetAsnAPI(w http.ResponseWriter, req *http.Request) {
 		asns := make([]pegawai, 0)
 		for rows.Next() {
 			pegawais := pegawai{}
-			rows.Scan(&pegawais.ID, &pegawais.Nik, &pegawais.Nip, &pegawais.Nama, &pegawais.Alamat)
+			rows.Scan(&pegawais.ID, &pegawais.Nik, &pegawais.Nip, &pegawais.Nama, &pegawais.Alamat, &pegawais.Profil)
 			asns = append(asns, pegawais)
 		}
 		result, err := json.Marshal(asns)

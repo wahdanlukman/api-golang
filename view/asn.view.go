@@ -35,6 +35,7 @@ func ListAllAsn(w http.ResponseWriter, req *http.Request) {
 		rows.Scan(&pegawais.ID, &pegawais.Nik, &pegawais.Nip, &pegawais.Nama, &pegawais.Alamat, &pegawais.Profil)
 		asns = append(asns, pegawais)
 	}
+
 	tpl := template.Must(template.ParseGlob("templates/*"))
 	tpl.ExecuteTemplate(w, "index.html", asns)
 }
