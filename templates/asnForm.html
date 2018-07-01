@@ -5,11 +5,12 @@
   <title>Home</title>
  </head>
  <body>
-  <form method="post" action="/prosesAsn">
+  <form method="post" action="/prosesAsn" enctype="multipart/form-data">
     NIK: <input type="text" name="nik" placeholder="nik" autofocus/>
     NIP: <input type="text" name="nip" placeholder="NIP"/>
     Nama: <input type="text" name="nama" placeholder="Nama"/>
     Alamat: <input type="text" name="alamat" placeholder="Alamat"/>
+    Foto : <input type="file" name="fileFoto"/>
     <input type="submit" value="Add Users"/>
    </form>
  </body>

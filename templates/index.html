@@ -13,6 +13,7 @@
         <th>NIP</th>
         <th>Nama</th>
         <th>Alamat</th>
+        <th>Profil</th>
         <th>Action</th>
       </tr>
       {{ if . }}
@@ -23,6 +24,7 @@
           <td>{{.Nip}}</td>
           <td>{{.Nama}}</td>
           <td>{{.Alamat}}</td>
+          <td><img src="{{.Profil}}" /></td>
           <td>
             <a href="/deleteAsn?id={{.ID}}">Delete</a> |
             <a href="/editAsn?id={{.ID}}">Edit</a>

@@ -2,7 +2,10 @@ package model
 
 import (
 	"api-golang/myconfig"
+	"io"
 	"net/http"
+	"os"
+	"path"
 
 	"api-golang/helper"
 )
@@ -13,6 +16,7 @@ type pegawai struct {
 	Nip    string
 	Nama   string
 	Alamat string
+	Profil string
 }
 
 //AddAsn adalah proses data dari form add asn
@@ -20,19 +24,38 @@ type pegawai struct {
 func AddAsn(w http.ResponseWriter, req *http.Request) {
 	db, err := myconfig.GetMysqlConnect()
 	defer db.Close()
+
+	//Parsing form bertype multipart
+	req.ParseMultipartForm(32 << 20)
+
 	if req.Method == http.MethodPost {
 		pegawai := pegawai{}
 		pegawai.Nik = req.FormValue("nik")
 		pegawai.Nip = req.FormValue("nip")
 		pegawai.Nama = req.FormValue("nama")
 		pegawai.Alamat = req.FormValue("alamat")
+		pegawai.Profil = req.FormValue("alamat")
 		helper.CheckErr(err)
 
-		_, err = db.Exec("INSERT INTO sim_asn(nik, nip, nama, alamat) VALUES (?, ?, ?, ?)",
+		file, handler, err := req.FormFile("fileFoto")
+		defer file.Close()
+
+		ext := path.Ext(handler.Filename)
+
+		newNameFile := pegawai.Nik + "-" + pegawai.Nama + ext
+
+		f, err := os.OpenFile("./test/"+newNameFile, os.O_WRONLY|os.O_CREATE, 0666)
+		helper.CheckErr(err)
+
+		defer file.Close()
+		io.Copy(f, file)
+
+		_, err = db.Exec("INSERT INTO sim_asn(nik, nip, nama, alamat, profil) VALUES (?, ?, ?, ?, ?)",
 			pegawai.Nik,
 			pegawai.Nip,
 			pegawai.Nama,
 			pegawai.Alamat,
+			newNameFile,
 		)
 		helper.CheckErr(err)
 		http.Redirect(w, req, "/", http.StatusSeeOther)
