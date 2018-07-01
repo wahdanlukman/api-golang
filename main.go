@@ -5,7 +5,7 @@ import (
 	"log"
 	"net/http"
 
-	//External Packages
+	//External Package
 	_ "github.com/go-sql-driver/mysql"
 
 	//Internal Packages
