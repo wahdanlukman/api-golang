@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Home</title>
+  </head>
+  <body>
+    <a href="/asnForm">Add Users</a><br/>
+    <table border="1">
+      <tr>
+        <th>ID</th>
+        <th>NIK</th>
+        <th>NIP</th>
+        <th>Nama</th>
+        <th>Alamat</th>
+        <th>Action</th>
+      </tr>
+      {{ if . }}
+        {{ range . }}
+        <tr>
+          <td>{{.ID}}</td>
+          <td>{{.Nik}}</td>
+          <td>{{.Nip}}</td>
+          <td>{{.Nama}}</td>
+          <td>{{.Alamat}}</td>
+          <td>
+            <a href="/deleteAsn?id={{.ID}}">Delete</a> |
+            <a href="/editAsn?id={{.ID}}">Edit</a>
+          </td>
+        </tr>
+        {{ end }}
+      {{ end }}
+    </table>
+  </body>
+</html>

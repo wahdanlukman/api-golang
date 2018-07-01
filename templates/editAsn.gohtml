@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Home</title>
+  </head>
+  <body>
+    {{ if . }}
+      <form method="post" action="/updateAsn">
+        <input type="hidden" name="id" value={{ .ID }} />
+        Nik: <input type="text" name="nik" value= {{ .Nik }} /> <br/>
+        Nip: <input type="text" name="nip" value= {{ .Nip }} /> <br/>
+        nama: <input type="text" name="nama" value= {{ .Nama }} /> <br/>
+        Alamat:  <input type="text" name="alamat" value= {{ .Alamat }} /> <br/>
+        <input type="submit" value="Update"/>
+      </form>
+    {{ else }}
+      <h1> Data Not Found </h1>
+    {{ end }}
+  </body>
+</html>

@@ -1,0 +1,8 @@
+hash: c6d604aef9289b1bd46977ba72b727aa073123063f02b8e40cacc872ba0e32a1
+updated: 2018-06-25T22:30:26.924458+08:00
+imports:
+- name: github.com/go-sql-driver/mysql
+  version: d523deb1b23d913de5bdada721a6071e71283618
+- name: github.com/wuriyanto48/floop
+  version: 426c3d65ea1776577998c747cf1f2b3fe717e20d
+testImports: []
