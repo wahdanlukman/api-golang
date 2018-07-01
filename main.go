@@ -30,7 +30,7 @@ func main() {
 	http.HandleFunc("/deleteAsn", model.DeleteAsn)
 	http.HandleFunc("/updateAsn", model.UpdateAsn)
 
-	// API ROUTE
+	// API ROUTES
 	http.HandleFunc("/api/", api.ListAllAsnAPI)
 	http.HandleFunc("/api/asn/", api.GetAsnAPI)
 
